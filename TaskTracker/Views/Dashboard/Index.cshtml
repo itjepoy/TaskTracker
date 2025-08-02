@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+    var total = (int)ViewData["Total"];
+    var completed = (int)ViewData["Completed"];
+    var incomplete = (int)ViewData["Incomplete"];
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="mb-4">👋 Welcome to Task Tracker!</h1>
+        <p class="lead">Manage your tasks efficiently and stay organized.</p>
+        <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary btn-lg mt-3">
+            👁️ View Tasks
+        </a>
+    </div>
+
+    <hr class="my-5" />
+
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">📋 Total Tasks</h5>
+                    <p class="display-6">@total</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-3 mt-md-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">✅ Completed</h5>
+                    <p class="display-6 text-success">@completed</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-3 mt-md-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">⌛ Incomplete</h5>
+                    <p class="display-6 text-warning">@incomplete</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
