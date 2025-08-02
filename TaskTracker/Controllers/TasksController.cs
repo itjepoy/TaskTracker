@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using TaskTracker.Data;
 using TaskTracker.Models;
 
@@ -6,6 +7,17 @@ namespace TaskTracker.Controllers
 {
     public class TasksController : Controller
     {
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                TempData["Error"] = "You must be logged in to access this page.";
+                context.Result = RedirectToAction("Login", "User");
+            }
+            base.OnActionExecuting(context);
+        }
+
         private readonly ApplicationDbContext _context;
 
         public TasksController(ApplicationDbContext context)

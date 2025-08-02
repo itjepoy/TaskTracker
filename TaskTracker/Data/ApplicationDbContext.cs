@@ -9,5 +9,8 @@ namespace TaskTracker.Data
             : base(options) { }
 
         public DbSet<TaskItem> TaskItems { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
     }
 }

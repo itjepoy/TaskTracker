@@ -14,6 +14,13 @@ namespace TaskTracker.Controllers
 
         public IActionResult Index()
         {
+
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                TempData["Error"] = "You must be logged in to access this page.";
+                return RedirectToAction("Login", "User");
+            }
+
             var totalTasks = _context.TaskItems.Count();
             var completedTasks = _context.TaskItems.Count(t => t.IsCompleted);
             var incompleteTasks = totalTasks - completedTasks;
