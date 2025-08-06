@@ -14,15 +14,17 @@ namespace TaskTracker.Controllers
 
         public IActionResult Index()
         {
-
-            if (HttpContext.Session.GetInt32("UserId") == null)
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
             {
                 TempData["Error"] = "You must be logged in to access this page.";
                 return RedirectToAction("Login", "User");
             }
 
-            var totalTasks = _context.TaskItems.Count();
-            var completedTasks = _context.TaskItems.Count(t => t.IsCompleted);
+            var userTasks = _context.Tasks.Where(t => t.UserId == userId);
+
+            var totalTasks = userTasks.Count();
+            var completedTasks = userTasks.Count(t => t.IsCompleted);
             var incompleteTasks = totalTasks - completedTasks;
 
             ViewData["Total"] = totalTasks;
@@ -31,5 +33,6 @@ namespace TaskTracker.Controllers
 
             return View();
         }
+
     }
 }
